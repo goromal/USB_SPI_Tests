@@ -7,7 +7,7 @@
 /************************** Tunable Constants **************************/
 /***********************************************************************/
 
-#define SECONDS_DELAY       2.5
+#define SECONDS_DELAY       0.08
 
 /************************************************************************/
 /********************* Helper Function Declarations *********************/
@@ -17,12 +17,7 @@ typedef enum {TRUE, FALSE} my_bool;
 
 void _reset_timer_1(float count);
 my_bool handle_timer_1();
-
-/************************************************************************/
-/**************** Subsystem State Transition Definitions ****************/
-/************************************************************************/
-
-
+void write_LEDs(int active_LED);
 
 /**************************************************************************/
 /**************************** Helper Functions ****************************/
@@ -53,6 +48,146 @@ my_bool handle_timer_1()
         TMR1 = 0;
         _T1IE = 0;
         return TRUE;
+    }
+}
+
+// active LED should come directly down the SPI line
+void write_LEDs(int active_LED)
+{
+    switch (active_LED)
+    {
+        case 0:
+            LED_0 = HIGH;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 1:
+            LED_0 = LOW;
+            LED_1 = HIGH;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 2:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = HIGH;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 3:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = HIGH;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 4:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = HIGH;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 5:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = HIGH;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 6:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = HIGH;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 7:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = HIGH;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
+        case 8:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = HIGH;
+            LED_9 = LOW;
+            break;
+        case 9:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = HIGH;
+            break;
+        default:
+            LED_0 = LOW;
+            LED_1 = LOW;
+            LED_2 = LOW;
+            LED_3 = LOW;
+            LED_4 = LOW;
+            LED_5 = LOW;
+            LED_6 = LOW;
+            LED_7 = LOW;
+            LED_8 = LOW;
+            LED_9 = LOW;
+            break;
     }
 }
 

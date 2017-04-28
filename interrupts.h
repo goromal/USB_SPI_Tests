@@ -7,46 +7,28 @@
 /******************** State Diagram Transition Outputs *******************/
 /*************************************************************************/
 
-typedef enum {LEFT, RIGHT} led_state_t;
-led_state_t led_state;
-
-void set_led_state(led_state_t state) // called in the main() function
-{
-    led_state = state;
-    switch(state)
-    {
-        case LEFT: // Subsystem initializations
-            LED_0 = HIGH;
-            LED_1 = LOW;
-            _reset_timer_1(SECONDS_DELAY);
-            break;
-        case RIGHT: // Spinning to locate the dispenser
-            LED_0 = LOW;
-            LED_1 = HIGH;
-            _reset_timer_1(SECONDS_DELAY);
-            break;
-    }
-}
-
 /************************************************************************/
 /****************************** Interrupts ******************************/
 /************************************************************************/
-
+/*
 // TIMER
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
     _T1IF = 0;
-    switch(led_state)
+    if (handle_timer_1() == TRUE)
     {
-        case LEFT:
-            if (handle_timer_1() == TRUE)
-                set_led_state(RIGHT);
-            break;
-        case RIGHT:
-            if (handle_timer_1() == TRUE)
-                set_led_state(LEFT);
-            break;     
+        handle_transition();
+        write_LEDs(current_led);
+        _reset_timer_1(SECONDS_DELAY);
     }
+}
+*/
+// SPI
+void __attribute__((interrupt, no_auto_psv)) _SPI1Interrupt(void)
+{
+    _SPI1IF = 0;
+    write_LEDs(SPI1BUF);
+    __delay_us(16);
 }
 
 #endif	/* INTERRUPTS_H */

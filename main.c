@@ -9,7 +9,7 @@
 
 int main(void) {
     initialize();
-    set_led_state(LEFT);
+    write_LEDs(-1);
     while(1);
     return 0;
 }
